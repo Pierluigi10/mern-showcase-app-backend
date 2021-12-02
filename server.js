@@ -83,10 +83,11 @@ app.post("/login", (req, res) => {
 });
 
 app.get("/currentuser", (req, res) => {
+  console.log(req.session.user);
   if (req.session.user) {
     res.json(req.session.user);
   } else {
-    res.status(500).send("bad access");
+    res.status(555).send("bad access");
   }
 });
 
