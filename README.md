@@ -1,4 +1,4 @@
-# Create React app with user authentication and authorization
+# MERN showcase App with user authentication and authorization
 
 - the goal of these instructions is to create both a frontend and backend site which easily allows you to assign users to groups in the API which then have various access in the React site
 
