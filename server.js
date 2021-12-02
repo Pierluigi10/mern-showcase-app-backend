@@ -69,18 +69,32 @@ const users = [
 //   }
 // });
 
+// app.post("/login", (req, res) => {
+//   const username = req.body.username;
+//   // const password = req.body.password;
+//   const user = users.find((user) => user.username === username);
+//   if (user) {
+//     req.session.user = user;
+//     req.session.save();
+//     res.send(user);
+//   } else {
+//     res.status(500).send("bad access");
+//   }
+// });
+
 app.post("/login", (req, res) => {
   const username = req.body.username;
   // const password = req.body.password;
-  const user = users.find((user) => user.username === username);
-  if (user) {
-    req.session.user = user;
-    req.session.save();
-    res.send(user);
-  } else {
-    res.status(500).send("bad access");
+  let user = users.find((user) => user.username === username);
+  if (!user) {
+    user = users.find((user) => user.username === "anonymousUser");
   }
+  req.session.user = user;
+  req.session.save();
+  res.json(user);
 });
+
+
 
 // app.get("/currentuser", (req, res) => {
 //   console.log(req.session.user);
@@ -92,11 +106,11 @@ app.post("/login", (req, res) => {
 // });
 
 app.get("/currentuser", (req, res) => {
-	let user = req.session.user;
-	if (!user) {
-		user = users.find(user => user.username === 'anonymousUser');
-	}
-	res.json(user);
+  let user = req.session.user;
+  if (!user) {
+    user = users.find((user) => user.username === "anonymousUser");
+  }
+  res.json(user);
 });
 
 app.get("/logout", (req, res) => {
