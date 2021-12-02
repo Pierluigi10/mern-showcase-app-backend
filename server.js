@@ -82,13 +82,21 @@ app.post("/login", (req, res) => {
   }
 });
 
+// app.get("/currentuser", (req, res) => {
+//   console.log(req.session.user);
+//   if (req.session.user) {
+//     res.json(req.session.user);
+//   } else {
+//     res.status(555).send("bad access");
+//   }
+// });
+
 app.get("/currentuser", (req, res) => {
-  console.log(req.session.user);
-  if (req.session.user) {
-    res.json(req.session.user);
-  } else {
-    res.status(555).send("bad access");
-  }
+	let user = req.session.user;
+	if (!user) {
+		user = users.find(user => user.username === 'anonymousUser');
+	}
+	res.json(user);
 });
 
 app.get("/logout", (req, res) => {
