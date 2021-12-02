@@ -2,12 +2,14 @@ import express from "express";
 import session from "express-session";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
+import cors from "cors"
 
 dotenv.config();
 
 const app = express();
 const PORT = 3003;
 
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use(
