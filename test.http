@@ -2,8 +2,13 @@
 
 
 ### user login
-GET {{url}}/login/ac
+POST {{url}}/login
 content-type: application/json
+
+{
+    "username": "kc",
+    "password": "ppp"
+}
 
 
 ### show user data

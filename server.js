@@ -8,6 +8,7 @@ dotenv.config();
 const app = express();
 const PORT = 3003;
 
+app.use(express.json());
 app.use(cookieParser());
 app.use(
   session({
@@ -50,22 +51,35 @@ const users = [
   },
 ];
 
-app.get("/login/:username", (req, res) => {
-  const user = users.find((user) => user.username === req.params.username);
+// app.get("/login/:username", (req, res) => {
+//   const user = users.find((user) => user.username === req.params.username);
+//   if (user) {
+//     req.session.user = user;
+//     req.session.save();
+//     res.send(`User logged in: ${JSON.stringify(user)}`);
+//   } else {
+//     res.status(500).send("bad login");
+//   }
+// });
+
+app.post("/login", (req, res) => {
+  const username = req.body.username;
+  // const password = req.body.password;
+  const user = users.find((user) => user.username === username);
   if (user) {
     req.session.user = user;
     req.session.save();
-    res.send(`User logged in: ${JSON.stringify(user)}`);
+    res.send(user);
   } else {
-    res.status(500).send("bad login");
+    res.status(500).send("bad access");
   }
 });
 
-app.get("/user", (req, res) => {
+app.get("/currentuser", (req, res) => {
   if (req.session.user) {
-    res.send(req.session.user);
+    res.json(req.session.user);
   } else {
-    res.send("no user logged in");
+    res.status(500).send("bad access");
   }
 });
 
