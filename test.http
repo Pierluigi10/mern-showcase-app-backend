@@ -1,0 +1,16 @@
+@url= http://localhost:3003
+
+
+### user login
+GET {{url}}/login/ac
+content-type: application/json
+
+
+### show user data
+GET {{url}}/user
+content-type: application/json
+
+### user logout
+GET {{url}}/logout
+content-type: application/json
+

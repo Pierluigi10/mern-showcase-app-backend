@@ -13,7 +13,7 @@ app.use(
 	session({
 		resave: true,
 		saveUninitialized: true,
-		secret: process.env.SESSION_SECRET
+		secret: process.env.SESSION_SECRET || "tempsecret"
 	})
 );
 
@@ -57,5 +57,5 @@ app.get("/logout", (req, res) => {
 });
 
 app.listen(PORT, (req, res) => {
-	console.log(`API listening on port ${PORT}`);
+	console.log(`API listening on port http://localhost:${PORT}`);
 });
