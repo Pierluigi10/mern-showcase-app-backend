@@ -94,8 +94,6 @@ app.post("/login", (req, res) => {
   res.json(user);
 });
 
-
-
 // app.get("/currentuser", (req, res) => {
 //   console.log(req.session.user);
 //   if (req.session.user) {
@@ -115,7 +113,8 @@ app.get("/currentuser", (req, res) => {
 
 app.get("/logout", (req, res) => {
   req.session.destroy();
-  res.send("User logged out");
+  const user = users.find((user) => user.username === "anonymousUser");
+  res.json(user);
 });
 
 app.listen(PORT, (req, res) => {
